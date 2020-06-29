@@ -1,26 +1,61 @@
-// const dataBase = require('./quotes.json');
+const { readJSONfile } = require("./handleJSON");
 
-const getRandomQuote = (db) => {
-  const randomNr = Math.floor(Math.random() * db.length);
-  return db[randomNr];
-}
+const getAllQuotes = async () => {
+  try {
+    const { quotes } = await readJSONfile("newQuotes.json");
 
-const getQuotesByName = (db, name) => {
-  return db.filter(obj => obj.name === name)
-}
+    return quotes;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getRandomQuote = async () => {
+  try {
+    const { quotes } = await readJSONfile("newQuotes.json");
+    const randomNr = Math.floor(Math.random() * quotes.length);
+
+    return quotes[randomNr];
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getQuotesByName = async (name) => {
+  try {
+    const { quotes } = await readJSONfile("newQuotes.json");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getAllCharacters = async () => {
+  try {
+    const { quotes } = await readJSONfile("newQuotes.json");
+
+    const allCharacters = quotes.reduce((charList, quote) => {
+      quote.characters.forEach((charName) => {
+        const characterNotInList = !charList.find((char) => char === charName);
+        if (characterNotInList) {
+          charList.push(charName);
+        }
+      });
+
+      return charList;
+    }, []);
+
+    return allCharacters;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 [
   {
-    name: 'Garth Holiday',
-    quotes: [
-      {
-
-      },
-    ]
-  }
-]
-
-
+    name: "Garth Holiday",
+    quotes: [{}],
+  },
+];
 
 // 'Ron Burgundy'
 // 'Veronica Corningstone'
@@ -29,8 +64,9 @@ const getQuotesByName = (db, name) => {
 // 'Brian Fantana'
 // 'Garth Holiday'
 
-
-
-
-module.exports.getRandomQuote = getRandomQuote;
-module.exports.getQuotesByName = getQuotesByName;
+module.exports = {
+  getAllQuotes,
+  getRandomQuote,
+  getQuotesByName,
+  getAllCharacters,
+};

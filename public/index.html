@@ -1,22 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  <h1>Hallå bibblan hur e läääget?</h1>
-  <button id="button">Get quote</button>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="random-quote">Get random quote</button>
+    <button id="all-quotes">Get all quotes</button>
+    <button id="all-characters">Get all characters</button>
+
+    <div id="container"></div>
+  </body>
 </html>
 
 <script>
-  let btn = document.getElementById('button');
-  btn.addEventListener('click', () => {
-    fetch('http://localhost:3000/quotes/random/')
-      .then(res => res.json())
-      .then(data => console.log(data));
-  })
+  const randomQuoteBtn = document.getElementById("random-quote");
+  randomQuoteBtn.addEventListener("click", () => {
+    fetch("http://localhost:3000/api/quotes/random/")
+      .then((res) => res.json())
+      .then((data) => {
+        const element = document.getElementById("container");
+        element.innerHTML = "";
+
+        data.quote.data.forEach((row) => {
+          let node = document.createElement("div");
+          node.innerHTML = `
+            <div>
+              <h2>${row.name}</h2>  
+              <p>${row.text}</p>  
+            </div>
+          `;
+          element.appendChild(node);
+        });
+      });
+  });
+
+  const allQuotesBtn = document.getElementById("all-quotes");
+  allQuotesBtn.addEventListener("click", () => {
+    fetch("http://localhost:3000/api/quotes")
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  });
+
+  const allCharactersBtn = document.getElementById("all-characters");
+  allCharactersBtn.addEventListener("click", () => {
+    fetch("http://localhost:3000/api/characters")
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  });
 </script>

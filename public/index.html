@@ -4,50 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" type="text/css" href="index.css" />
+
     <title>Document</title>
   </head>
   <body>
-    <button id="random-quote">Get random quote</button>
-    <button id="all-quotes">Get all quotes</button>
-    <button id="all-characters">Get all characters</button>
+    <div class="wrapper">
+      <header class="header">
+        <h1 class="title">ANCHORMAN QUOTES</h1>
+      </header>
 
-    <div id="container"></div>
+      <div class="button-wrapper"></div>
+      <button id="random-quote">Get random quote</button>
+      <button id="all-quotes">Get all quotes</button>
+      <button id="all-characters">Get all characters</button>
+
+      <div id="container"></div>
+    </div>
   </body>
+  <script src="index.js"></script>
 </html>
-
-<script>
-  const randomQuoteBtn = document.getElementById("random-quote");
-  randomQuoteBtn.addEventListener("click", () => {
-    fetch("http://localhost:3000/api/quotes/random/")
-      .then((res) => res.json())
-      .then((data) => {
-        const element = document.getElementById("container");
-        element.innerHTML = "";
-
-        data.quote.data.forEach((row) => {
-          let node = document.createElement("div");
-          node.innerHTML = `
-            <div>
-              <h2>${row.name}</h2>  
-              <p>${row.text}</p>  
-            </div>
-          `;
-          element.appendChild(node);
-        });
-      });
-  });
-
-  const allQuotesBtn = document.getElementById("all-quotes");
-  allQuotesBtn.addEventListener("click", () => {
-    fetch("http://localhost:3000/api/quotes")
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  });
-
-  const allCharactersBtn = document.getElementById("all-characters");
-  allCharactersBtn.addEventListener("click", () => {
-    fetch("http://localhost:3000/api/characters")
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  });
-</script>

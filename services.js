@@ -2,7 +2,7 @@ const { readJSONfile } = require("./handleJSON");
 
 const getAllQuotes = async () => {
   try {
-    const { quotes } = await readJSONfile("newQuotes.json");
+    const { quotes } = await readJSONfile("quotes.json");
 
     return quotes;
   } catch (err) {
@@ -12,7 +12,7 @@ const getAllQuotes = async () => {
 
 const getRandomQuote = async () => {
   try {
-    const { quotes } = await readJSONfile("newQuotes.json");
+    const { quotes } = await readJSONfile("quotes.json");
     const randomNr = Math.floor(Math.random() * quotes.length);
 
     return quotes[randomNr];
@@ -23,7 +23,7 @@ const getRandomQuote = async () => {
 
 const getQuotesByName = async (name) => {
   try {
-    const { quotes } = await readJSONfile("newQuotes.json");
+    const { quotes } = await readJSONfile("quotes.json");
   } catch (err) {
     console.log(err);
   }
@@ -31,7 +31,7 @@ const getQuotesByName = async (name) => {
 
 const getAllCharacters = async () => {
   try {
-    const { quotes } = await readJSONfile("newQuotes.json");
+    const { quotes } = await readJSONfile("quotes.json");
 
     const allCharacters = quotes.reduce((charList, quote) => {
       quote.characters.forEach((charName) => {

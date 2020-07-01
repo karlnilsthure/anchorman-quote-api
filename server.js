@@ -1,17 +1,17 @@
-const fs = require("fs");
+const express = require("express");
+const path = require('path');
+
 const {
   getAllQuotes,
   getRandomQuote,
   getQuotesByName,
   getAllCharacters,
 } = require("./services");
-const quoteDB = JSON.parse(fs.readFileSync("quotes.json"));
 const { scrapeIMDB } = require("./scraper");
 
-const express = require("express");
 const app = express();
 
-app.use(express.static("public"));
+const port = process.env.PORT || 4000;
 
 app.get("/api/quotes", async (req, res) => {
   try {
@@ -78,7 +78,7 @@ app.get("/api/quotes/search/:name", async (req, res) => {
 //   res.send(data);
 // }
 
-const port = 3000;
+
 
 scrapeIMDB(() => {
   app.emit("ready");

@@ -10,7 +10,7 @@ const scrapeIMDB = async (cb) => {
     const quotes = findQuotes(html);
     const characters = findCharacters(quotes);
 
-    await writeFileToJSON("newQuotes.json", JSON.stringify({ quotes }), "utf8");
+    await writeFileToJSON("quotes.json", JSON.stringify({ quotes }), "utf8");
   } catch (err) {
     console.log(err);
   }

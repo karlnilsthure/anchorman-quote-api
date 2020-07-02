@@ -7,14 +7,16 @@
   },
   "scripts": {
     "client": "cd client && npm run start",
-    "server": "nodemon --verbose server.js",
+    "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "devDependencies": {
     "concurrently": "^5.2.0"
   },
   "nodemonConfig": {
-    "ignore": ["*.json"],
+    "ignore": [
+      "*.json"
+    ],
     "delay": "3"
   }
 }

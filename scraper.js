@@ -8,9 +8,14 @@ const scrapeIMDB = async (cb) => {
       "https://www.imdb.com/title/tt0357413/quotes/?tab=qt&ref_=tt_trv_qu"
     );
     const quotes = findQuotes(html);
+
     const characters = findCharacters(quotes);
 
-    await writeFileToJSON("quotes.json", JSON.stringify({ quotes }), "utf8");
+    await writeFileToJSON(
+      "quotes.json",
+      JSON.stringify({ quotes, characters }),
+      "utf8"
+    );
   } catch (err) {
     console.log(err);
   }
@@ -52,14 +57,15 @@ const findQuotes = (html) => {
           quote.data.push({ name, text: formatedText });
         }
       });
-    quotes.push(quote);
+    if (quote.data.length > 0) {
+      quotes.push(quote);
+    }
   });
 
   return quotes;
 };
 
 const findCharacters = (quotesArr) => {
-  // const characters = arr.reduce(list, quote)
   const allCharacters = quotesArr.reduce((charList, quote) => {
     quote.characters.forEach((charName) => {
       const characterNotInList = !charList.find((char) => char === charName);

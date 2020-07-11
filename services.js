@@ -21,9 +21,16 @@ const getRandomQuote = async () => {
   }
 };
 
-const getQuotesByName = async (name) => {
+const getQuotesByCharacterId = async (id) => {
   try {
-    const { quotes } = await readJSONfile("quotes.json");
+    const { quotes, characters } = await readJSONfile("quotes.json");
+    const { name } = characters.find((el) => el.id === parseInt(id));
+
+    const quotesByCharacter = quotes.filter((quote) => {
+      return quote.characters.find((character) => character === name);
+    });
+
+    return quotesByCharacter;
   } catch (err) {
     console.log(err);
   }
@@ -67,6 +74,6 @@ const getAllCharacters = async () => {
 module.exports = {
   getAllQuotes,
   getRandomQuote,
-  getQuotesByName,
+  getQuotesByCharacterId,
   getAllCharacters,
 };

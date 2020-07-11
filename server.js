@@ -1,10 +1,10 @@
 const express = require("express");
-const path = require('path');
+const path = require("path");
 
 const {
   getAllQuotes,
   getRandomQuote,
-  getQuotesByName,
+  getQuotesByCharacterId,
   getAllCharacters,
 } = require("./services");
 const { scrapeIMDB } = require("./scraper");
@@ -32,6 +32,7 @@ app.get("/api/quotes/random", async (req, res) => {
 });
 
 app.get("/api/characters", async (req, res) => {
+  console.log("gris");
   try {
     const characters = await getAllCharacters();
     res.send({ characters });
@@ -40,16 +41,15 @@ app.get("/api/characters", async (req, res) => {
   }
 });
 
-app.get("/api/quotes/search/:name", async (req, res) => {
+app.get("/api/characters/:id", async (req, res) => {
   try {
-    const { name } = req.params;
-    const quotes = await getQuotesByName(name);
+    const { id } = req.params;
+    const quotes = await getQuotesByCharacterId(id);
     res.send({ quotes });
   } catch (err) {
     console.log(err);
   }
 });
-
 
 // app.get("/quotes/search/", async (req, res) => {
 //   try {
@@ -77,8 +77,6 @@ app.get("/api/quotes/search/:name", async (req, res) => {
 //   const data = getQuotesByName(quoteDB, name);
 //   res.send(data);
 // }
-
-
 
 scrapeIMDB(() => {
   app.emit("ready");

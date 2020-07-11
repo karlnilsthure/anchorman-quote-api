@@ -68,9 +68,9 @@ const findQuotes = (html) => {
 const findCharacters = (quotesArr) => {
   const allCharacters = quotesArr.reduce((charList, quote) => {
     quote.characters.forEach((charName) => {
-      const characterNotInList = !charList.find((char) => char === charName);
+      const characterNotInList = !charList.find((character) => character.name === charName);
       if (characterNotInList) {
-        charList.push(charName);
+        charList.push({name: charName, id: charList.length + 1});
       }
     });
 

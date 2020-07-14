@@ -57,20 +57,6 @@ const getAllCharacters = async () => {
   }
 };
 
-[
-  {
-    name: "Garth Holiday",
-    quotes: [{}],
-  },
-];
-
-// 'Ron Burgundy'
-// 'Veronica Corningstone'
-// 'Brick Tamland'
-// 'Champ Kind'
-// 'Brian Fantana'
-// 'Garth Holiday'
-
 module.exports = {
   getAllQuotes,
   getRandomQuote,

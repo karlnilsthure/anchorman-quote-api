@@ -14,6 +14,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 app.get("/api/quotes", async (req, res) => {
+  console.log("gris");
   try {
     const quotes = await getAllQuotes();
     res.send({ quotes });
@@ -32,7 +33,6 @@ app.get("/api/quotes/random", async (req, res) => {
 });
 
 app.get("/api/characters", async (req, res) => {
-  console.log("gris");
   try {
     const characters = await getAllCharacters();
     res.send({ characters });
@@ -49,6 +49,13 @@ app.get("/api/characters/:id", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+app.use((req, res, next) => {
+  res.status(404).send({
+    status: 404,
+    error: "Not found",
+  });
 });
 
 // app.get("/quotes/search/", async (req, res) => {
